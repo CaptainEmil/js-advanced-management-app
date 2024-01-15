@@ -49,3 +49,25 @@ class Task {
     }
 }
 
+class TasksList {
+    #tasks;
+
+    constructor(...tasks) {
+        this.#tasks = tasks;
+    }
+
+    addTask(task) {
+        this.#tasks.push(task);
+    }
+    
+    sortByDate() {
+        this.#tasks.toSorted((a, b) => {
+
+        });
+    }
+
+    get tasks() {
+        return this.#tasks;
+    }
+}
+
