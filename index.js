@@ -2,7 +2,6 @@
 
 console.clear();
 
-localStorage.clear();
 class Task {
     #id;
     #name;
@@ -27,6 +26,10 @@ class Task {
         return this.#id;
     }
 
+    set id(id){
+        this.#id=id;
+    }
+
     get name() {
         return this.#name;
     }
@@ -37,6 +40,10 @@ class Task {
 
     get date() {
         return this.#date;
+    }
+
+    set date(date) {
+        this.#date=date;
     }
 
     get isDone() {
@@ -51,23 +58,28 @@ class Task {
         return this.#dateInst;
     }
 
+    set dateInst(dateInst) {
+        this.#dateInst=dateInst;
+    }
+
     toJSON() {
         return {
-            ['#id']: this.#id,
-            ['#name']: this.#name,
-            ['#description']: this.#description,
-            ['#date']: this.#date,
-            ['#dateInst']: this.#dateInst,
-            ['#isDone']: this.#isDone,
+            ['id']: this.#id,
+            ['name']: this.#name,
+            ['description']: this.#description,
+            ['date']: this.#date,
+            ['dateInst']: this.#dateInst,
+            ['isDone']: this.#isDone,
         };
     }
 
-    makeDone(){
-        this.#isDone=true;
-    }
-
-    makeUndone(){
-        this.#isDone=false;
+    static fromJSON(id,name,description,date,dateInst,isDone){
+        const newTask=new Task(name,description);
+        newTask.id=id;
+        newTask.date=date;
+        newTask.dateInst=dateInst;
+        newTask.isDone=isDone;
+        return newTask;
     }
 }
 
@@ -250,6 +262,7 @@ function updateAll(){
             location.href=`/edit/edit.html?id=${id}`;
         });
     }
+    localStorage.setItem('tasksList', JSON.stringify(tasksList.tasks));
 }
 
 function filter(tasksList,type){
@@ -267,7 +280,6 @@ function filter(tasksList,type){
 }
 
 const form = document.querySelector('#add-task-form');
-const tasksList = localStorage.getItem('tasksList') === null ? new TasksList() : localStorage.getItem('tasksList');
 let deleteButtons = document.querySelectorAll('.delete-button');
 const select=document.querySelector('#sort-by');
 const doneFilterButton=document.querySelector('.done-filter-button');
@@ -275,6 +287,18 @@ const undoneFilterButton=document.querySelector('.undone-filter-button');
 const allFilterButton=document.querySelector('.all-filter-button');
 let statusCheckboxes = document.querySelectorAll('.status-checkbox');
 let editButtons = document.querySelectorAll('.edit-button');
+
+const tasksList = new TasksList();
+
+if(localStorage.getItem('tasksList') !== null){
+    const jsonArr=JSON.parse(localStorage.getItem('tasksList'));
+    for(let task of jsonArr){
+        tasksList.addTasks(Task.fromJSON(task.id,task.name,task.description,task.date,task.dateInst,task.isDone));
+        updateAll();
+    }
+}
+
+
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -297,7 +321,6 @@ form.addEventListener('submit', (e) => {
     tasksList.addTasks(task);
 
     updateAll();
-    localStorage.setItem('tasksList', JSON.stringify(new Task('dsasdfsf', 'adfasfdaf')));
 
     inputTaskName.value='';
     inputTaskDescription.value='';
