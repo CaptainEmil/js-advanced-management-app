@@ -1,0 +1,19 @@
+#sort-filter-container{
+    display: flex;
+    align-items: center;
+    justify-content:flex-end;
+    gap: 10px;
+}
+
+#sort-filter-container {
+    margin: 10px auto;
+    width: 80%;
+    border-radius: 5px;
+    background-color: #ededed;
+    padding: 20px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.sort-container{
+    margin-right: auto;
+}

@@ -1,0 +1,29 @@
+form{
+    margin: 10px auto;
+    width: 80%;
+    border-radius: 5px;
+    background-color: #ededed;
+    padding: 20px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+
+input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.edit-button,
+.delete-button,
+.undone-filter-button,
+.all-filter-button,
+.done-filter-button{
+    margin: 0;
+    padding: 14px 10px;
+    width: 110px;
+}
