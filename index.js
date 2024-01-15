@@ -196,10 +196,8 @@ class TasksList {
 function updateAll(){
     tasksList.updateList();
     deleteButtons = document.querySelectorAll('.delete-button');
-    console.log(deleteButtons);
     for(let i=0; i<deleteButtons.length;++i){
         deleteButtons[i].addEventListener('click', (e)=>{
-            console.log('21313');
             const id = deleteButtons[i].closest('li').id;
             tasksList.deleteTask(id);
             updateAll();
@@ -210,6 +208,7 @@ function updateAll(){
 const form = document.querySelector('#add-task-form');
 const tasksList = localStorage.getItem('tasksList') === null ? new TasksList() : localStorage.getItem('tasksList');
 let deleteButtons = document.querySelectorAll('.delete-button');
+const select=document.querySelector('#sort-by');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -221,8 +220,17 @@ form.addEventListener('submit', (e) => {
 
     updateAll();
     localStorage.setItem('tasksList', (new Task('dsasdfsf', 'adfasfdaf')).toJson());
-    console.log(JSON.parse((new Task('dsasdfsf', 'adfasfdaf')).toJson()));
 });
 
-
-
+select.addEventListener('change',(e)=>{
+    const sortType=select.value;
+    switch (sortType) {
+        case 'date':
+            tasksList.sortByDate();
+            break;
+        case 'name':
+            tasksList.sortByName();
+            break;
+    }
+    updateAll();
+});
