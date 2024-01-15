@@ -115,7 +115,7 @@ class TasksList {
     }
 
     indexOfTask(id){
-        const task=this.#tasks.findTask(id);
+        const task=this.findTask(id);
         return this.#tasks.indexOf(task);
     }
 
