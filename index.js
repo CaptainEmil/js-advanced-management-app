@@ -247,7 +247,7 @@ function updateAll(){
     for(let i=0; i<editButtons.length;++i){
         editButtons[i].addEventListener('click', (e)=>{
             const id = editButtons[i].closest('li').id;
-            location.href=`/edit/edit.html?${id}`;
+            location.href=`/edit/edit.html?id=${id}`;
         });
     }
 }
