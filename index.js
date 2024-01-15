@@ -10,12 +10,12 @@ class Task {
     #date;
     #dateInst;
     #isDone;
-    constructor(name, description, isoDate=(new Date()).toISOString()) {
+    constructor(name, description) {
         this.#id = "id" + Math.random().toString(16).slice(2);
         this.#name = name;
         this.#description = description;
-        this.#dateInst = new Date(isoDate);
-        let date = new Date(isoDate);
+        this.#dateInst = new Date();
+        let date = new Date();
         let dateArr = date.toISOString().split('.')[0].split('T');
         let dayMonthYear = dateArr[0].split('-').reverse().join('.');
         let hourMinSec = dateArr[1];
@@ -41,6 +41,10 @@ class Task {
 
     get isDone() {
         return this.#isDone;
+    }
+
+    set isDone(isDone) {
+        this.#isDone=isDone;
     }
 
     get dateInst() {
@@ -126,12 +130,12 @@ class TasksList {
 
     makeTaskDone(id){
         const task=this.findTask(id);
-        task.makeDone();
+        task.isDone=true;
     }
 
     makeTaskUndone(id){
         const task=this.findTask(id);
-        task.makeUndone();
+        task.isDone=false;
     }
 
     filterForDoneTasks() {
