@@ -224,6 +224,7 @@ function updateAll(){
     tasksList.updateList();
     deleteButtons = document.querySelectorAll('.delete-button');
     statusCheckboxes = document.querySelectorAll('.status-checkbox');
+    editButtons = document.querySelectorAll('.edit-button');
     for(let i=0; i<deleteButtons.length;++i){
         deleteButtons[i].addEventListener('click', (e)=>{
             const id = deleteButtons[i].closest('li').id;
@@ -241,6 +242,12 @@ function updateAll(){
                 tasksList.makeTaskUndone(id);
             }
             updateAll();
+        });
+    }
+    for(let i=0; i<editButtons.length;++i){
+        editButtons[i].addEventListener('click', (e)=>{
+            const id = editButtons[i].closest('li').id;
+            location.href=`/edit/edit.html?${id}`;
         });
     }
 }
@@ -267,6 +274,7 @@ const doneFilterButton=document.querySelector('.done-filter-button');
 const undoneFilterButton=document.querySelector('.undone-filter-button');
 const allFilterButton=document.querySelector('.all-filter-button');
 let statusCheckboxes = document.querySelectorAll('.status-checkbox');
+let editButtons = document.querySelectorAll('.edit-button');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
