@@ -47,15 +47,15 @@ class Task {
         return this.#dateInst;
     }
 
-    toJson() {
-        return JSON.stringify({
+    toJSON() {
+        return {
             ['#id']: this.#id,
             ['#name']: this.#name,
             ['#description']: this.#description,
             ['#date']: this.#date,
             ['#dateInst']: this.#dateInst,
             ['#isDone']: this.#isDone,
-        });
+        };
     }
 
     makeDone(){
@@ -268,12 +268,27 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const inputTaskName = document.querySelector('#input-task-name');
     const inputTaskDescription = document.querySelector('#input-task-description');
+    let regexName = /^(?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}|[0-9]{1,16})\s)*(((?:[0-9]{1,16}\s)(?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16})))|((?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16})\s)(?:[0-9]{1,16}))|((?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}))(?:\s([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}))))$/g;
+    let regexDescription= /\s*([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}|[0-9]{1,16})(?:\s([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}|[0-9]{1,16}))*\s*/g;
+
+    if(!regexName.test(inputTaskName.value)){
+        console.log("invalid name!");
+        return;
+    }
+    if(!regexDescription.test(inputTaskDescription.value)||inputTaskName.value===inputTaskDescription.value.trim()){
+        console.log("invalid description!");
+        return;
+    }
+
 
     const task = new Task(inputTaskName.value, inputTaskDescription.value);
     tasksList.addTasks(task);
 
     updateAll();
-    localStorage.setItem('tasksList', (new Task('dsasdfsf', 'adfasfdaf')).toJson());
+    localStorage.setItem('tasksList', JSON.stringify(new Task('dsasdfsf', 'adfasfdaf')));
+
+    inputTaskName.value='';
+    inputTaskDescription.value='';
 });
 
 select.addEventListener('change',(e)=>{
