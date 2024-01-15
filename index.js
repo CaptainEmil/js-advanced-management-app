@@ -51,9 +51,11 @@ class Task {
 
 class TasksList {
     #tasks;
+    #filteredTasks;
 
     constructor(...tasks) {
-        this.#tasks = tasks;
+        this.#tasks = [...tasks];
+        this.#filteredTasks=[...tasks];
     }
 
     addTask(task) {
@@ -61,13 +63,30 @@ class TasksList {
     }
     
     sortByDate() {
-        this.#tasks.toSorted((a, b) => {
+        this.#filteredTasks.sort((a, b) => b.dateInst()-a.dateInst());
+    }
 
+    sortByName() {
+        this.#filteredTasks.sort((a, b) =>{ 
+            if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
         });
+    }
+
+    filterForDoneTasks(){
+        this.#filteredTasks = this.#tasks.filter((task)=> task.isDone);
+    }
+
+    filterForUndoneTasks(){
+        this.#filteredTasks = this.#tasks.filter((task)=> !task.isDone);
     }
 
     get tasks() {
         return this.#tasks;
     }
 }
-
