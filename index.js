@@ -89,4 +89,40 @@ class TasksList {
     get tasks() {
         return this.#tasks;
     }
+
+    removeAllElementsInList(tasksList) {
+        while (tasksList.firstChild) {
+            tasksList.removeChild(tasksList.firstChild);
+        }
+    }
+
+    appendList(){
+        const tasksList=document.querySelector('#tasks-list');
+        this.removeAllElementsInList(tasksList);
+        for(const task of this.#filteredTasks){
+            const li=document.createElement('li');
+            li.id=task.id;
+
+            const spanName=document.createElement('span');
+            spanName.textContent=task.name;
+
+            const spanStatus=document.createElement('span');
+            spanStatus.textContent=`Status: ${isDone?'Done':'Undone'}`;
+
+            const statusCheckbox=document.createElement('input');
+            statusCheckbox.setAttribute('type','checkbox');
+            statusCheckbox.checked=isDone;
+
+            const editBtn=document.createElement('button');
+            editBtn.className='edit-button';
+            editBtn.textContent='Edit';
+
+            const deleteBtn=document.createElement('button');
+            deleteBtn.className='delete-button';
+            deleteBtn.textContent='Delete';
+
+            li.append(spanName,spanStatus,statusCheckbox,editBtn,deleteBtn);
+            tasksList.append(li);
+        }
+    }
 }

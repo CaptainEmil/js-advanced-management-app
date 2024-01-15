@@ -19,7 +19,7 @@ input[type=text]{
     box-sizing: border-box;
 }
 
-input[type=submit],
+
 button {
     width: 100%;
     background-color: #016a70;
@@ -32,17 +32,19 @@ button {
 }
 
 .edit-button,
-.delete-button,
-.status-button{
+.delete-button{
     margin: 0;
     padding: 14px 10px;
     width: 110px;
 }
 
+.status-checkbox{
+    margin-right: auto;
+}
+
 .task-status{
     border-left: 1px solid #ccc;
     padding-left: 10px;
-    margin-right: auto;
 }
 
 #tasks-list li{
@@ -52,7 +54,7 @@ button {
     gap: 10px;
 }
 
-input[type=submit]:hover,
+
 button:hover {
     background-color: #018c94;
 }
@@ -60,7 +62,7 @@ button:hover {
 form,
 #tasks-list {
     margin: 10px auto;
-    width: 30%;
+    width: 50%;
     border-radius: 5px;
     background-color: #ededed;
     padding: 20px;
