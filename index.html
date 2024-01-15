@@ -10,9 +10,21 @@
 </head>
 
 <body>
+    <div id="sort-filter-container">
+        <div class="sort-container">
+            <label for="sort-by">Sort by:</label>
+            <select name="sort-by" id="sort-by">
+                <option value="date">Date</option>
+                <option value="name">Name</option>
+            </select>
+        </div>
+        <button class="done-filter-button">Show done</button>
+        <button class="undone-filter-button">Show undone</button>
+        <button class="all-filter-button">Show all</button>
+    </div>
     <ul id="tasks-list">
         <li id="12345">
-            <span class="task-name">Task</span> 
+            <span class="task-name">Task</span>
             <span class="task-status">Status: Done</span>
             <input type="checkbox" class="status-checkbox"></button>
             <button class="edit-button">Edit</button>

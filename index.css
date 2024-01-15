@@ -32,13 +32,17 @@ button {
 }
 
 .edit-button,
-.delete-button{
+.delete-button,
+.undone-filter-button,
+.all-filter-button,
+.done-filter-button{
     margin: 0;
     padding: 14px 10px;
     width: 110px;
 }
 
-.status-checkbox{
+.status-checkbox,
+.sort-container{
     margin-right: auto;
 }
 
@@ -47,7 +51,8 @@ button {
     padding-left: 10px;
 }
 
-#tasks-list li{
+#tasks-list li,
+#sort-filter-container{
     display: flex;
     align-items: center;
     justify-content:flex-end;
@@ -60,7 +65,8 @@ button:hover {
 }
 
 form,
-#tasks-list {
+#tasks-list,
+#sort-filter-container {
     margin: 10px auto;
     width: 50%;
     border-radius: 5px;

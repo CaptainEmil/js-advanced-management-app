@@ -64,10 +64,21 @@ class TasksList {
     
     sortByDate() {
         this.#filteredTasks.sort((a, b) => b.dateInst()-a.dateInst());
+        this.#tasks.sort((a, b) => b.dateInst()-a.dateInst());
     }
 
     sortByName() {
         this.#filteredTasks.sort((a, b) =>{ 
+            if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
+        });
+
+        this.#tasks.sort((a, b) =>{ 
             if (a.name < b.name) {
                 return -1;
               }
@@ -84,6 +95,10 @@ class TasksList {
 
     filterForUndoneTasks(){
         this.#filteredTasks = this.#tasks.filter((task)=> !task.isDone);
+    }
+
+    unfilterTasks(){
+        this.#filteredTasks = [...this.#tasks];
     }
 
     get tasks() {
