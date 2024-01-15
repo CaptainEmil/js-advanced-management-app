@@ -58,7 +58,13 @@ class Task {
         });
     }
 
+    makeDone(){
+        this.#isDone=true;
+    }
 
+    makeUndone(){
+        this.#isDone=false;
+    }
 }
 
 class TasksList {
@@ -103,12 +109,29 @@ class TasksList {
         });
     }
 
-    deleteTask(id){
-        const task=this.#tasks.find((task)=>task.id===id);
-        const index=this.#tasks.indexOf(task);
+    findTask(id){
+        return this.#tasks.find((task)=>task.id===id);
 
+    }
+
+    indexOfTask(id){
+        const task=this.#tasks.findTask(id);
+        return this.#tasks.indexOf(task);
+    }
+
+    deleteTask(id){
+        const index=this.indexOfTask(id);
         this.#tasks.splice(index,1);
-        this.#filteredTasks.splice(index,1);
+    }
+
+    makeTaskDone(id){
+        const task=this.findTask(id);
+        task.makeDone();
+    }
+
+    makeTaskUndone(id){
+        const task=this.findTask(id);
+        task.makeUndone();
     }
 
     filterForDoneTasks() {
@@ -196,6 +219,7 @@ class TasksList {
 function updateAll(){
     tasksList.updateList();
     deleteButtons = document.querySelectorAll('.delete-button');
+    statusCheckboxes = document.querySelectorAll('.status-checkbox');
     for(let i=0; i<deleteButtons.length;++i){
         deleteButtons[i].addEventListener('click', (e)=>{
             const id = deleteButtons[i].closest('li').id;
@@ -203,12 +227,42 @@ function updateAll(){
             updateAll();
         });
     }
+    for(let i=0; i<statusCheckboxes.length;++i){
+        statusCheckboxes[i].addEventListener('change', (e)=>{
+            const id = statusCheckboxes[i].closest('li').id;
+            if(statusCheckboxes[i].checked){
+                tasksList.makeTaskDone(id);
+            }
+            else{
+                tasksList.makeTaskUndone(id);
+            }
+            updateAll();
+        });
+    }
+}
+
+function filter(tasksList,type){
+    switch (type) {
+        case 'all':
+            tasksList.unfilterTasks();
+            break;
+        case 'done':
+            tasksList.filterForDoneTasks();
+            break;
+        case 'undone':
+            tasksList.filterForUndoneTasks();
+            break;
+    }
 }
 
 const form = document.querySelector('#add-task-form');
 const tasksList = localStorage.getItem('tasksList') === null ? new TasksList() : localStorage.getItem('tasksList');
 let deleteButtons = document.querySelectorAll('.delete-button');
 const select=document.querySelector('#sort-by');
+const doneFilterButton=document.querySelector('.done-filter-button');
+const undoneFilterButton=document.querySelector('.undone-filter-button');
+const allFilterButton=document.querySelector('.all-filter-button');
+let statusCheckboxes = document.querySelectorAll('.status-checkbox');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -234,3 +288,19 @@ select.addEventListener('change',(e)=>{
     }
     updateAll();
 });
+
+doneFilterButton.addEventListener('click', (e)=>{
+    filter(tasksList,'done');
+    updateAll();
+});
+
+allFilterButton.addEventListener('click', (e)=>{
+    filter(tasksList,'all');
+    updateAll();
+});
+
+undoneFilterButton.addEventListener('click', (e)=>{
+    filter(tasksList,'undone');
+    updateAll();
+});
+
