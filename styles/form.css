@@ -27,3 +27,12 @@ input[type=text]{
     padding: 14px 10px;
     width: 110px;
 }
+
+.hidden-error{
+    visibility: hidden;
+}
+
+.visible-error{
+    visibility: visible;
+    color: red;
+}

@@ -32,13 +32,16 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     inputTaskName = document.querySelector('#input-task-name');
     inputTaskDescription = document.querySelector('#input-task-description');
+    const pError=document.querySelector('#error');
 
-    if (!regexName.test(inputTaskName.value)) {
-        console.log("invalid name!");
+    if(!regexName.test(inputTaskName.value)){
+        pError.textContent="invalid name!";
+        pError.className='visible-error';
         return;
     }
-    if (!regexDescription.test(inputTaskDescription.value) || inputTaskName.value === inputTaskDescription.value.trim()) {
-        console.log("invalid description!");
+    if(!regexDescription.test(inputTaskDescription.value)||inputTaskName.value===inputTaskDescription.value.trim()){
+        pError.textContent="invalid description!";
+        pError.className='visible-error';
         return;
     }
 

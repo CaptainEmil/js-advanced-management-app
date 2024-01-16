@@ -6,8 +6,6 @@ import {regexDescription,regexName} from './scripts/regex.js';
 
 console.clear();
 
-
-
 function updateAll(){
     tasksList.updateList();
     deleteButtons = document.querySelectorAll('.delete-button');
@@ -80,17 +78,28 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const inputTaskName = document.querySelector('#input-task-name');
     const inputTaskDescription = document.querySelector('#input-task-description');
+    const pError=document.querySelector('#error');
+    const isNameValid=regexName.test(inputTaskName.value);
+    const isDescriptionValid=regexDescription.test(inputTaskDescription.value)&&inputTaskName.value!==inputTaskDescription.value.trim();
+
+
+    console.log(regexName.test(inputTaskName.value));
     
-    if(!regexName.test(inputTaskName.value)){
-        console.log("invalid name!");
-        return;
-    }
-    if(!regexDescription.test(inputTaskDescription.value)||inputTaskName.value===inputTaskDescription.value.trim()){
-        console.log("invalid description!");
+    pError.textContent=isNameValid?"":"invalid name!";
+    pError.className=isNameValid?'hidden-error':'visible-error';
+    if(!isNameValid){
         return;
     }
 
+    pError.textContent=isDescriptionValid?"":"invalid description!";
+    pError.className=isDescriptionValid?'hidden-error':'visible-error';
+    if(!isDescriptionValid){
+        return;
+    }
 
+    console.log('got here');
+
+    pError.className='hidden-error';
     const task = new Task(inputTaskName.value, inputTaskDescription.value);
     tasksList.addTasks(task);
 
