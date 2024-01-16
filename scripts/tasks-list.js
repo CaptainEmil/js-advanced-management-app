@@ -95,8 +95,9 @@ export default class TasksList {
             const li = document.createElement('li');
             li.id = task.id;
 
-            const spanName = document.createElement('span');
-            spanName.textContent = task.name;
+            const ancName = document.createElement('a');
+            ancName.href=`/details/details.html?id=${task.id}`;
+            ancName.textContent = task.name;
 
             const spanStatus = document.createElement('span');
             spanStatus.textContent = `Status: ${task.isDone ? 'Done' : 'Undone'}`;
@@ -115,7 +116,7 @@ export default class TasksList {
             deleteBtn.className = 'delete-button';
             deleteBtn.textContent = 'Delete';
 
-            li.append(spanName, spanStatus, statusCheckbox, editBtn, deleteBtn);
+            li.append(ancName, spanStatus, statusCheckbox, editBtn, deleteBtn);
             tasksList.append(li);
         }
     }
