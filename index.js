@@ -1,5 +1,7 @@
-import Task from "./classes/task.js";
-import TasksList from "./classes/tasks-list.js";
+import Task from "./scripts/task.js";
+import TasksList from "./scripts/tasks-list.js";
+import {regexDescription,regexName} from './scripts/regex.js';
+
 'use strict';
 
 console.clear();
@@ -78,9 +80,7 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
     const inputTaskName = document.querySelector('#input-task-name');
     const inputTaskDescription = document.querySelector('#input-task-description');
-    let regexName = /^(?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}|[0-9]{1,16})\s)*(((?:[0-9]{1,16}\s)(?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16})))|((?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16})\s)(?:[0-9]{1,16}))|((?:([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}))(?:\s([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}))))$/g;
-    let regexDescription= /\s*([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}|[0-9]{1,16})(?:\s([a-z]{1,16}|[а-яА-ЯёЁ]{1,16}|[0-9]{1,16}))*\s*/g;
-
+    
     if(!regexName.test(inputTaskName.value)){
         console.log("invalid name!");
         return;
