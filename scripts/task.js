@@ -30,8 +30,17 @@ export default class Task {
         return this.#name;
     }
 
+    set name(name){
+        this.#name=name;
+    }
+
+
     get description() {
         return this.#description;
+    }
+
+    set description(description){
+        this.#description=description;
     }
 
     get date() {
