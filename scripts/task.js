@@ -82,7 +82,7 @@ export default class Task {
         const newTask=new Task(name,description);
         newTask.id=id;
         newTask.date=date;
-        newTask.dateInst=dateInst;
+        newTask.dateInst=new Date(dateInst);
         newTask.isDone=isDone;
         return newTask;
     }
