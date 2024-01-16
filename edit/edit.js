@@ -33,17 +33,22 @@ form.addEventListener('submit', (e) => {
     inputTaskName = document.querySelector('#input-task-name');
     inputTaskDescription = document.querySelector('#input-task-description');
     const pError=document.querySelector('#error');
+    const isNameValid=regexName.test(inputTaskName.value);
+    const isDescriptionValid=regexDescription.test(inputTaskDescription.value)&&inputTaskName.value!==inputTaskDescription.value.trim();
+    
+    pError.textContent=isNameValid?"":"invalid name!";
+    pError.className=isNameValid?'hidden-error':'visible-error';
+    if(!isNameValid){
+        return;
+    }
 
-    if(!regexName.test(inputTaskName.value)){
-        pError.textContent="invalid name!";
-        pError.className='visible-error';
+    pError.textContent=isDescriptionValid?"":"invalid description!";
+    pError.className=isDescriptionValid?'hidden-error':'visible-error';
+    if(!isDescriptionValid){
         return;
     }
-    if(!regexDescription.test(inputTaskDescription.value)||inputTaskName.value===inputTaskDescription.value.trim()){
-        pError.textContent="invalid description!";
-        pError.className='visible-error';
-        return;
-    }
+
+    pError.className='hidden-error';
 
     task.name = inputTaskName.value 
     task.description = inputTaskDescription.value;

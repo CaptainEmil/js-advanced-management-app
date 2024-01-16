@@ -81,9 +81,6 @@ form.addEventListener('submit', (e) => {
     const pError=document.querySelector('#error');
     const isNameValid=regexName.test(inputTaskName.value);
     const isDescriptionValid=regexDescription.test(inputTaskDescription.value)&&inputTaskName.value!==inputTaskDescription.value.trim();
-
-
-    console.log(regexName.test(inputTaskName.value));
     
     pError.textContent=isNameValid?"":"invalid name!";
     pError.className=isNameValid?'hidden-error':'visible-error';
@@ -96,8 +93,6 @@ form.addEventListener('submit', (e) => {
     if(!isDescriptionValid){
         return;
     }
-
-    console.log('got here');
 
     pError.className='hidden-error';
     const task = new Task(inputTaskName.value, inputTaskDescription.value);
